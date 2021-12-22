@@ -1,11 +1,9 @@
-
-
+import { Homepage } from './views/Homepage';
+import React from 'react';
 function App() {
-  return (
-    <div className="App">
-      
-    </div>
-  );
+    return (
+        <Homepage/>
+    );
 }
 
 export default App;
