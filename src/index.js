@@ -1,7 +1,8 @@
 import './styles/index.css';
 
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import App from './App';
-import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -11,7 +12,9 @@ ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
             <BrowserRouter>
-                <App />
+                <Routes>
+                    <Route path='/' element={ <App />} />
+                </Routes>
             </BrowserRouter>
         </Provider>
     </React.StrictMode>,

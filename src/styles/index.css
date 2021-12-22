@@ -18,6 +18,23 @@
     }
 }
 
+@keyframes showSearch {
+    0%{
+        width: 0;
+    }
+    100%{
+        width: 50%;
+    }
+}
+@keyframes hideSearch {
+    0%{
+        width: 50%;
+    }
+    100%{
+        width: 0;
+    }
+}
+
 .navbar-link:hover::after{
     content: '';
     position: absolute;
@@ -27,4 +44,12 @@
     width: 100%;
     background-color: black;
     animation: linkHover .3s;
+}
+
+.search{
+    animation: showSearch .3s;
+}
+.search-hidden{
+    animation: hideSearch .3s ;
+
 }
