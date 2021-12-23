@@ -46,6 +46,10 @@
     animation: linkHover .3s;
 }
 
+.navbar-link.red-link:hover::after{
+    background-color: #ef4444;
+}
+
 .search{
     animation: showSearch .3s;
 }

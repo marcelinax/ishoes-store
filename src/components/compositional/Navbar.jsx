@@ -20,18 +20,17 @@ export const Navbar = () => {
                     <Link to='/' className='font-extrabold text-xl'>IShoes</Link>
                 </div>
                 <div className='items-center flex'>
-                    <NavbarLink title='New'/>
-                    <NavbarLink title='Men'/>
-                    <NavbarLink title='Women'/>
-                    <NavbarLink title='Kids'/>
-                    <NavbarLink title='Sale' className='text-red-500'/>
+                    <NavbarLink title='New' to=''/>
+                    <NavbarLink title='Men' to=''/>
+                    <NavbarLink title='Women' to=''/>
+                    <NavbarLink title='Kids' to=''/>
+                    <NavbarLink title='Sale' className='text-red-500 red-link' to=''/>
                 </div>
                 <div className='flex flex-1 items-center justify-end'>
-                    {/* {toggleShowSearch && <Search isShown={toggleShowSearch}/>} */}
                     <Search isShown={toggleShowSearch}/>
                     <ButtonWithIcon icon={<BiSearchAlt2 size={24}/>} className='mr-3' onClick={()=>{return setToggleShowSearch(!toggleShowSearch);}}/>
-                    <ButtonWithIcon icon={<BiUserCircle size={24}/>} className='mr-3'/>
-                    <ButtonWithIcon icon={<BiCart size={24}/>}/>
+                    <ButtonWithIcon icon={<BiUserCircle size={24}/>} className='mr-3' />
+                    <ButtonWithIcon icon={<BiCart size={24}/>} isLink to='shopping-cart'/>
                 </div>
             </div>
         </div>
