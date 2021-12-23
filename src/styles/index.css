@@ -53,3 +53,16 @@
     animation: hideSearch .3s ;
 
 }
+.MuiSlider-root  {
+    height: 5px !important;
+    
+}
+
+.MuiSlider-track, .MuiSlider-rail {
+    height: 5px !important;
+    border-radius: 20px !important;
+}
+
+.MuiSlider-thumb {
+    top: 14px !important;
+}

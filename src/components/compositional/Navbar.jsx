@@ -24,7 +24,7 @@ export const Navbar = () => {
                     <NavbarLink title='Men'/>
                     <NavbarLink title='Women'/>
                     <NavbarLink title='Kids'/>
-                    <NavbarLink title='Sale'/>
+                    <NavbarLink title='Sale' className='text-red-500'/>
                 </div>
                 <div className='flex flex-1 items-center justify-end'>
                     {/* {toggleShowSearch && <Search isShown={toggleShowSearch}/>} */}
