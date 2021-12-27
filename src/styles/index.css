@@ -70,3 +70,24 @@
 .MuiSlider-thumb {
     top: 14px !important;
 }
+
+@layer utilities {
+    .scrollbar {
+      scrollbar-color: red white;
+      scrollbar-width: thin;
+    }
+    .scrollbar::-webkit-scrollbar {
+        width: 8px;
+      }
+  
+      .scrollbar::-webkit-scrollbar-track {
+        background:  #d6d3d1;
+        border-radius: 20px;
+      }
+  
+      .scrollbar::-webkit-scrollbar-thumb {
+        background:#a8a29e;
+        border-radius: 20px;
+      }
+    
+  }
