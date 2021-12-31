@@ -1,5 +1,6 @@
 import { BiArrowBack } from 'react-icons/bi';
 import { BreakLine } from './BreakLine';
+import { Link } from 'react-router-dom';
 import React from 'react';
 import { ShoppingCartItem } from './ShoppingCartItem';
 
@@ -21,10 +22,10 @@ export const ShoppingCartItems = () => {
                     </div>
                 </div>
                 <BreakLine className='mt-2' />
-                <div className='w-full flex mt-14'>
+                <div className='w-full flex mt-28'>
                     <div className='flex  items-center group'>
-                        <BiArrowBack size={22} className='cursor-pointer'/>
-                        <p className='ml-3 font-medium cursor-pointer group-hover:font-semibold  transition-all'>Back to shop</p>
+                        <BiArrowBack size={22} className='cursor-pointer' />
+                        <Link to='/' className='ml-3 font-medium cursor-pointer group-hover:font-semibold transition-all'>Back to shop</Link>
                     </div>
                 </div>
             </div>

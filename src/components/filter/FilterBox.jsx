@@ -4,8 +4,8 @@ import { FilterItemBox } from './FilterItemBox';
 import { FilterItemBoxColor } from './FilterItemBoxColor';
 import { FilterItemCheckbox } from './FilterItemCheckbox';
 import { FilterItemPrice } from './FilterItemPrice';
-import { FilterItemSize } from './FilterItemSize';
 import React from 'react';
+import { SizeItem } from './../global/SizeItem';
 
 export const FilterBox = () => {
 
@@ -24,7 +24,7 @@ export const FilterBox = () => {
 
     const renderSizes = () => {
         return Constants.sizes.map(size => {return (
-            <FilterItemSize key={size} size={size}/>
+            <SizeItem key={size} size={size}/>
         );});
     };
 
@@ -41,9 +41,9 @@ export const FilterBox = () => {
     };
 
     
-
+  
     return (
-        <div className=' w-1/6'>
+        <div className='max-w-[16.666667%] min-w-[16.666667%] mr-20'>
             <div className='py-4'>
                 <div className='px-3 flex w-full justify-between'>
                     <p className='font-bold'>FILTER</p>

@@ -30,7 +30,7 @@ export const Navbar = () => {
                     <Search isShown={toggleShowSearch}/>
                     <ButtonWithIcon icon={<BiSearchAlt2 size={24}/>} className='mr-3' onClick={()=>{return setToggleShowSearch(!toggleShowSearch);}}/>
                     <ButtonWithIcon icon={<BiUserCircle size={24}/>} className='mr-3' />
-                    <ButtonWithIcon icon={<BiCart size={24}/>} isLink to='shopping-cart'/>
+                    <ButtonWithIcon icon={<BiCart size={24}/>} isLink to='/shopping-cart'/>
                 </div>
             </div>
         </div>

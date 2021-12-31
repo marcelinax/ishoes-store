@@ -11,7 +11,7 @@ export const ShoppingCartSummary = () => {
                 <div className='w-full mt-16 pb-4'>
                     <h1 className='font-bold text-2xl'>Summary</h1>
                 </div>
-                < BreakLine className='mt-2'/>
+                < BreakLine className='mt-1'/>
                 <div className='w-full flex justify-between items-center my-9'>
                     <p className='font-semibold text-lg '>ITEMS 3</p>
                     <p className='font-semibold text-lg '>$120</p>
@@ -31,7 +31,9 @@ export const ShoppingCartSummary = () => {
                     <p className='font-semibold text-lg'>TOTAL PRICE</p>
                     <p className='font-semibold text-lg'>$137</p>
                 </div>
-                <PrimaryButton type='button' title='ORDER' className='mt-11'/>
+                <div className='mt-28 w-full'>
+                    <PrimaryButton type='button' title='ORDER' />
+                </div>
             </div>
         </div>
     );

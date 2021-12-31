@@ -6,7 +6,7 @@ export const ButtonWithIcon = ({ icon, className, onClick, isLink = false, to })
     
     const wrapper = (children) => {
         if (isLink) {
-            return (<Link to={`/${to}`}>{ children }</Link>);
+            return (<Link to={`${to}`}>{ children }</Link>);
         } else {
             return children;
         }
