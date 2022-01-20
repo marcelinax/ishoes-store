@@ -1,27 +1,54 @@
 import { BreakLine } from './shopping cart/BreakLine';
+import { COLORS } from '../Constants';
 import { ColorItem } from './global/ColorItem';
-import Constants from './../Constants';
+import PropTypes from 'prop-types';
 import React from 'react';
+import { calcShoeProductPrice } from './../utils/calcShoeProductPrice';
 
-export const ShoeProductCard = () => {
+export const ShoeProductCard = ({ bgImg, colors, model, brand, price, calcShoeProductPrice, isOnSale }) => {
+
+    const getColorByTitle = (title) => {
+        return COLORS.colors.filter(color => color.title === title).map(color => color.color);
+    };
+    
+    const renderColorsItems = () => {
+        if (colors)
+            return colors.map(color => (
+                <ColorItem key={color.toLowerCase()} color={getColorByTitle(color)} className='w-6 h-6' />
+            ));
+    };
+
+
     return (
-        <div className='flex flex-col basis-1/3 h-2/5 p-6'>
+        <div className='flex flex-col basis-1/3 h-2/5 px-6'>
             <div className='w-full h-1/3'>
-                <div className='bg-no-repeat bg-center bg-contain h-full w-full' style={{backgroundImage: 'url(data:image/jpeg;base64,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)'}} />
+                <div className='bg-no-repeat bg-center bg-contain h-full w-full' style={{backgroundImage: `url(${bgImg})`}} />
             </div>
-            
             <div className='flex flex-col w-full mt-2 bg-red py-4 px-2'>
                 <div className='w-full flex flex-wrap'>
-                    <ColorItem className='w-6 h-6' color={Constants.colors[2].color.white}/>
-                    <ColorItem className='w-6 h-6' color={Constants.colors[3].color.white}/>
+                    {renderColorsItems()}
                 </div>
                 <BreakLine className='h-[1px] my-2'/>
                 <div className='w-full flex flex-col'>
-                    <h6 className='font-bold text-sm mb-1'>Nike</h6>
-                    <h6 className='font-bold text-sm mb-1'>Air Force One - White</h6>
-                    <p className='text-neutral-500 font-medium text-sm'>$300</p>
+                    <h6 className='font-bold text-sm mb-1'>{brand.name}</h6>
+                    <h6 className='font-bold text-sm mb-1'>{model}</h6>
+                    <div className='flex items-center'>
+                        {isOnSale && <p className='text-red-600 font-medium text-sm mr-1'>${calcShoeProductPrice}</p>}
+                        <p className={`text-neutral-500 font-medium text-sm ${isOnSale && 'line-through	 text-xs'}`}>${price}</p>
+                    </div>
+                    
                 </div>
             </div>
         </div>
     );
+};
+
+ShoeProductCard.propTypes = {
+    bgImg: PropTypes.string.isRequired,
+    colors: PropTypes.arrayOf(PropTypes.string).isRequired,
+    model: PropTypes.string.isRequired,
+    brand: PropTypes.string.isRequired,
+    calcShoeProductPrice: PropTypes.func,
+    price: PropTypes.number.isRequired,
+    isOnSale: PropTypes.bool.isRequired
 };

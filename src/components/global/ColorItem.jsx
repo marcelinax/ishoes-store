@@ -9,5 +9,5 @@ export const ColorItem = ({className, color}) => {
 
 ColorItem.propsTypes = {
     className: PropTypes.string,
-    color: PropTypes.string
+    color: PropTypes.string.isRequired
 };

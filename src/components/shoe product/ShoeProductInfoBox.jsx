@@ -2,8 +2,8 @@ import { BiHeart } from 'react-icons/bi';
 import { BiX } from 'react-icons/bi';
 import { BreakLine } from './../shopping cart/BreakLine';
 import { ButtonWithIcon } from '../global/ButtonWithIcon';
+import { COLORS } from './../../Constants';
 import { ColorItem } from '../global/ColorItem';
-import Constants from './../../Constants';
 import { PrimaryButton } from './../global/PrimaryButton';
 import React from 'react';
 import { ShoeProductHeading } from './ShoeProductHeading';
@@ -26,8 +26,8 @@ export const ShoeProductInfoBox = () => {
                     <div className='w-full flex flex-col'>
                         <ShoeProductHeading title='COLOR'/>
                         <div className='w-full flex mt-2'>
-                            <ColorItem color={Constants.colors['bg-red-600']} className='w-10 h-10 ml-0'/>
-                            <ColorItem color={Constants.colors['bg-red-600']} className='w-10 h-10'/>
+                            <ColorItem color={COLORS.colors['bg-red-600']} className='w-10 h-10 ml-0'/>
+                            <ColorItem color={COLORS.colors['bg-red-600']} className='w-10 h-10'/>
                         </div>
                         <ShoeProductHeading title='SIZE' className='mt-4'/>
                         <div className='w-full flex mt-2'>

@@ -1,4 +1,5 @@
-import Constants from '../../Constants';
+import { COLORS, GENDER, SIZES } from '../../Constants';
+
 import { FilterBoxLabel } from './FilterBoxLabel';
 import { FilterItemBox } from './FilterItemBox';
 import { FilterItemBoxColor } from './FilterItemBoxColor';
@@ -6,39 +7,40 @@ import { FilterItemCheckbox } from './FilterItemCheckbox';
 import { FilterItemPrice } from './FilterItemPrice';
 import React from 'react';
 import { SizeItem } from './../global/SizeItem';
+import { TYPES } from './../../Constants';
 
 export const FilterBox = () => {
 
-    const renderSexCheckboxes = () => {
-        return Constants.sex.map(sex => {return (
-            <FilterItemCheckbox key={sex} title={sex}/>
+    const renderGenderCheckboxes = () => {
+        return GENDER.gender.map(gender => {return (
+            <FilterItemCheckbox key={gender} title={gender}/>
         );});
     };
 
     const renderColors = () => {
-        return Constants.colors.map(color => {
+        return COLORS.colors.map(color => {
             return (
                 <FilterItemBoxColor key={color.title} color={color.color} title={color.title}/>
             );});
     };
 
     const renderSizes = () => {
-        return Constants.sizes.map(size => {return (
+        return SIZES.sizes.map(size => {return (
             <SizeItem key={size} size={size}/>
         );});
     };
 
     const renderTypes = () => {
-        return Constants.types.map(type => {return (
+        return TYPES.types.map(type => {return (
             <FilterItemCheckbox key={type} title={type}/>
         );});
     };
 
-    const renderBrands = () => {
-        return Constants.brands.map(brand => {return (
-            <FilterItemCheckbox key={brand} title={brand}/>
-        );});
-    };
+    // const renderBrands = () => {
+    //     return Constants.brands.map(brand => {return (
+    //         <FilterItemCheckbox key={brand} title={brand}/>
+    //     );});
+    // };
 
     
   
@@ -62,11 +64,11 @@ export const FilterBox = () => {
             <FilterItemBox title='Types'>
                 {renderTypes()}
             </FilterItemBox>
-            <FilterItemBox title='Brands'>
+            {/* <FilterItemBox title='Brands'>
                 {renderBrands()}
-            </FilterItemBox>
-            <FilterItemBox title='Sex' >
-                {renderSexCheckboxes()}
+            </FilterItemBox> */}
+            <FilterItemBox title='Gender' >
+                {renderGenderCheckboxes()}
             </FilterItemBox>
             <FilterItemBox title='Price' >
                 <FilterItemPrice/>
