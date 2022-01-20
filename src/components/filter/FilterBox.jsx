@@ -9,25 +9,41 @@ import React from 'react';
 import { SizeItem } from './../global/SizeItem';
 import { TYPES } from './../../Constants';
 import axios from 'axios';
+import { calcShoeProductPrice } from './../../utils/calcShoeProductPrice';
 import { config } from './../../config/Config';
 import { setBrands } from '../../state/brandsSlice';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 export const FilterBox = () => {
 
 
     const dispatch = useDispatch();
     const brands = useSelector(state => state.brands.brands);
+    const shoeProducts = useSelector(state => { return state.shoeProducts.shoeProducts; });
+    const [maxPrice, setMaxPrice] = useState(0); 
 
     useEffect(() => {
         fetchBrands();   
-    },[]);
+        getMaxPrice();
+    }, []);
+
+    useEffect(() => {
+        getMaxPrice();
+    }, [shoeProducts]);
+  
+    
+    const getMaxPrice = () => {
+        if (shoeProducts) {
+            setMaxPrice(
+                Math.max(...shoeProducts.searchingShoeProducts.map(shoeProduct => calcShoeProductPrice(shoeProduct)))
+            );}
+    };
 
     const fetchBrands = async () => {
         await axios.post(config.apiUrl + 'brands/search').then(res => {
-            console.log(res.data);
             dispatch(setBrands(res.data));
         });
     };
@@ -68,7 +84,6 @@ export const FilterBox = () => {
   
     return (
         <div className='max-w-[16.666667%] min-w-[16.666667%] mr-20'>
-            {console.log(brands)}
             <div className='py-4'>
                 <div className='px-3 flex w-full justify-between'>
                     <p className='font-bold'>FILTER</p>
@@ -94,7 +109,7 @@ export const FilterBox = () => {
                 {renderGenderCheckboxes()}
             </FilterItemBox>
             <FilterItemBox title='Price' >
-                <FilterItemPrice/>
+                <FilterItemPrice maxPrice={maxPrice}/>
             </FilterItemBox>
             <FilterItemBox title='Colors' >
                 <div className='w-full flex flex-wrap items-center'>

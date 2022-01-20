@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 
 import Slider from '@material-ui/core/Slider';
 
-export const FilterItemPrice = () => {
+export const FilterItemPrice = ({maxPrice}) => {
 
-    const [value, setValue] = useState([2, 10]);
+    const [value, setValue] = useState([0, maxPrice]);
 
-    
+
     return (
         <div className='w-full flex flex-col'>
             <Slider
@@ -18,6 +18,7 @@ export const FilterItemPrice = () => {
                 size='medium'
             />
             <div className='w-full flex justify-between'>
+                {console.log(value.min, value.max)}
                 <p className='font-semibold text-sm'>${value[0]}</p>
                 <p className='font-semibold text-sm'>${value[1]}</p>
             </div>

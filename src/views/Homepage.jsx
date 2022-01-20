@@ -8,18 +8,22 @@ import axios from 'axios';
 import { calcShoeProductPrice } from './../utils/calcShoeProductPrice';
 import { config } from './../config/Config';
 import { setShoeProducts } from '../state/shoeProductsSlice';
+import { useState } from 'react';
 
 export const Homepage = () => {
 
     const dispatch = useDispatch();
-    const shoeProducts = useSelector(state => {return state.shoeProducts.shoeProducts;});
+    const shoeProducts = useSelector(state => { return state.shoeProducts.shoeProducts; });
+   
 
     useEffect(() => {
         fetchShoeProducts(); 
-    },[]);
+
+    }, []);
+    
 
     const fetchShoeProducts = async () => {
-        await axios.post(config.apiUrl + 'shoeProducts/search').then(res => {return dispatch(setShoeProducts(res.data));} );
+        await axios.post(config.apiUrl + 'shoeProducts/search').then(res => dispatch(setShoeProducts(res.data)) );
     };
 
     const renderShoeProductsCards = () => {

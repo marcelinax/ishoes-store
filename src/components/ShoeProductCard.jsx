@@ -3,7 +3,6 @@ import { COLORS } from '../Constants';
 import { ColorItem } from './global/ColorItem';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { calcShoeProductPrice } from './../utils/calcShoeProductPrice';
 
 export const ShoeProductCard = ({ bgImg, colors, model, brand, price, calcShoeProductPrice, isOnSale }) => {
 
@@ -47,8 +46,8 @@ ShoeProductCard.propTypes = {
     bgImg: PropTypes.string.isRequired,
     colors: PropTypes.arrayOf(PropTypes.string).isRequired,
     model: PropTypes.string.isRequired,
-    brand: PropTypes.string.isRequired,
-    calcShoeProductPrice: PropTypes.func,
+    brand: PropTypes.object.isRequired,
+    calcShoeProductPrice: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
     isOnSale: PropTypes.bool.isRequired
 };
