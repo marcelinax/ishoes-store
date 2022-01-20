@@ -8,8 +8,29 @@ import { FilterItemPrice } from './FilterItemPrice';
 import React from 'react';
 import { SizeItem } from './../global/SizeItem';
 import { TYPES } from './../../Constants';
+import axios from 'axios';
+import { config } from './../../config/Config';
+import { setBrands } from '../../state/brandsSlice';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 export const FilterBox = () => {
+
+
+    const dispatch = useDispatch();
+    const brands = useSelector(state => state.brands.brands);
+
+    useEffect(() => {
+        fetchBrands();   
+    },[]);
+
+    const fetchBrands = async () => {
+        await axios.post(config.apiUrl + 'brands/search').then(res => {
+            console.log(res.data);
+            dispatch(setBrands(res.data));
+        });
+    };
 
     const renderGenderCheckboxes = () => {
         return GENDER.gender.map(gender => {return (
@@ -36,16 +57,18 @@ export const FilterBox = () => {
         );});
     };
 
-    // const renderBrands = () => {
-    //     return Constants.brands.map(brand => {return (
-    //         <FilterItemCheckbox key={brand} title={brand}/>
-    //     );});
-    // };
+    const renderBrands = () => {
+        if(brands)
+            return brands.map(brand => {return (
+                <FilterItemCheckbox key={brand._id} title={brand.name}/>
+            );});
+    };
 
     
   
     return (
         <div className='max-w-[16.666667%] min-w-[16.666667%] mr-20'>
+            {console.log(brands)}
             <div className='py-4'>
                 <div className='px-3 flex w-full justify-between'>
                     <p className='font-bold'>FILTER</p>
@@ -64,9 +87,9 @@ export const FilterBox = () => {
             <FilterItemBox title='Types'>
                 {renderTypes()}
             </FilterItemBox>
-            {/* <FilterItemBox title='Brands'>
+            <FilterItemBox title='Brands'>
                 {renderBrands()}
-            </FilterItemBox> */}
+            </FilterItemBox>
             <FilterItemBox title='Gender' >
                 {renderGenderCheckboxes()}
             </FilterItemBox>
