@@ -16,9 +16,10 @@ export const FilterItemPrice = ({maxPrice}) => {
                 style={{ color: 'black' }}
                 rail={'p-2'}
                 size='medium'
+                max={maxPrice}
+                min={0}
             />
             <div className='w-full flex justify-between'>
-                {console.log(value.min, value.max)}
                 <p className='font-semibold text-sm'>${value[0]}</p>
                 <p className='font-semibold text-sm'>${value[1]}</p>
             </div>
