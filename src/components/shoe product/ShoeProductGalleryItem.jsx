@@ -1,9 +1,17 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
-export const ShoeProductGalleryItem = () => {
+export const ShoeProductGalleryItem = ({ setActivePhoto, photo, isActive }) => {
+    
     return (
-        <div className='w-[90px] h-[90px] mb-4'>
-            <div className='w-full h-full bg-no-repeat bg-cover bg-center' style={{ backgroundImage: 'url(https://sklep.sizeer.com/media/cache/gallery/rc/knvz3ag4/nike-air-force-1-07-damskie-sneakersy-bialy-dd8959-100_4.jpg)' }} />
+        <div className='w-[90px] h-[90px] mb-4 cursor-pointer hover:scale-95 transition-all' onClick={() => {
+            setActivePhoto(photo);
+        }}>
+            <div className={`w-full h-full bg-no-repeat bg-contain bg-center ${isActive && 'border-b-2 border-zinc-200'}`} style={{ backgroundImage: `url(${photo})` }} />
         </div>
     );
+};
+
+ShoeProductGalleryItem.propTypes = {
+    photo: PropTypes.string.isRequired
 };

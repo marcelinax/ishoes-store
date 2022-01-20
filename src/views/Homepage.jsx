@@ -8,17 +8,18 @@ import axios from 'axios';
 import { calcShoeProductPrice } from './../utils/calcShoeProductPrice';
 import { config } from './../config/Config';
 import { setShoeProducts } from '../state/shoeProductsSlice';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 export const Homepage = () => {
 
     const dispatch = useDispatch();
     const shoeProducts = useSelector(state => { return state.shoeProducts.shoeProducts; });
+    const navigate = useNavigate();
    
 
     useEffect(() => {
         fetchShoeProducts(); 
-
     }, []);
     
 
@@ -26,10 +27,14 @@ export const Homepage = () => {
         await axios.post(config.apiUrl + 'shoeProducts/search').then(res => dispatch(setShoeProducts(res.data)) );
     };
 
+
+   
+
     const renderShoeProductsCards = () => {
         if (shoeProducts) {
             return shoeProducts.searchingShoeProducts.map(shoeProduct => {return (
-                <ShoeProductCard key={shoeProduct._id} bgImg={shoeProduct.photos[0]} brand={shoeProduct.brand} colors={shoeProduct.colors} model={shoeProduct.model} price={shoeProduct.price} calcShoeProductPrice={calcShoeProductPrice(shoeProduct)} isOnSale={shoeProduct.isOnSale}/>
+                <ShoeProductCard key={shoeProduct._id} bgImg={shoeProduct.photos[0]} brand={shoeProduct.brand} colors={shoeProduct.colors} model={shoeProduct.model} price={shoeProduct.price} calcShoeProductPrice={calcShoeProductPrice(shoeProduct)} 
+                    isOnSale={shoeProduct.isOnSale} onViewDetailsClick={() => navigate(`shoeProduct/${shoeProduct._id}`) }/>
             );});
         }
     };

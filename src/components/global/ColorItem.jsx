@@ -3,7 +3,7 @@ import React from 'react';
 
 export const ColorItem = ({className, color}) => {
     return (
-        <div className={`rounded-[50%] shadow-md border border-zinc-200 m-1 ${className} ${color}`} />
+        <div className={`rounded-[50%] shadow-md border border-zinc-200 m-1 first:ml-0 ${className} ${color}`} />
     );
 };
 

@@ -1,10 +1,11 @@
-import { BiStar } from 'react-icons/bi';
+import {IoIosStar, IoIosStarOutline} from 'react-icons/io';
+
 import React from 'react';
 
-export const StarItem = () => {
+export const StarItem = ({isEmpty}) => {
     return (
         <div>
-            <BiStar fill='#facc15' size={22}/>
+            {isEmpty ? <IoIosStarOutline fill='#facc15' size={22}/> : <IoIosStar fill='#facc15' size={22}/>}
         </div>
     );
 };

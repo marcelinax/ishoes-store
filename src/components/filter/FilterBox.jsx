@@ -24,6 +24,12 @@ export const FilterBox = () => {
     const brands = useSelector(state => state.brands.brands);
     const shoeProducts = useSelector(state => { return state.shoeProducts.shoeProducts; });
     const [maxPrice, setMaxPrice] = useState(0); 
+    // const [filterData, setFilterData] = useState({
+    //     type: [],
+    //     brand: [],
+    //     gender: [],
+    //     price: 
+    // })
 
     useEffect(() => {
         fetchBrands();   
