@@ -6,29 +6,14 @@ import { FilterBox } from './../components/filter/FilterBox';
 import { ShoeProductCard } from './../components/ShoeProductCard';
 import axios from 'axios';
 import { calcShoeProductPrice } from './../utils/calcShoeProductPrice';
-import { config } from './../config/Config';
-import { setShoeProducts } from '../state/shoeProductsSlice';
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useRefreshShoeProducts } from './../hooks/useRefreshShoeProducts';
 
 export const Homepage = () => {
 
-    const dispatch = useDispatch();
     const shoeProducts = useSelector(state => { return state.shoeProducts.shoeProducts; });
     const navigate = useNavigate();
-   
 
-    useEffect(() => {
-        fetchShoeProducts(); 
-    }, []);
-    
-
-    const fetchShoeProducts = async () => {
-        await axios.post(config.apiUrl + 'shoeProducts/search').then(res => dispatch(setShoeProducts(res.data)) );
-    };
-
-
-   
 
     const renderShoeProductsCards = () => {
         if (shoeProducts) {

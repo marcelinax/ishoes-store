@@ -6,7 +6,6 @@ export const FilterItemPrice = ({maxPrice}) => {
 
     const [value, setValue] = useState([0, maxPrice]);
 
-
     return (
         <div className='w-full flex flex-col'>
             <Slider
@@ -25,4 +24,6 @@ export const FilterItemPrice = ({maxPrice}) => {
             </div>
         </div>
     );
+
+    
 };
