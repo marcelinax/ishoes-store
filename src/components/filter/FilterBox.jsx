@@ -25,15 +25,15 @@ export const FilterBox = () => {
     const brands = useSelector(state => state.brands.brands);
     const shoeProducts = useSelector(state => { return state.shoeProducts.shoeProducts; });
     const [maxPrice, setMaxPrice] = useState(0); 
+    const [value,setValue] = useState([0, 0]);
     const [filterLabels, setFilterLabels] = useState([]);
-    const [value, setValue] = useState([0, maxPrice]);
     const { refresh: refreshShoes } = useRefreshShoeProducts();
     const [filterData, setFilterData] = useState({
         types: [],
         brands: [],
         genders: [],
-        minPrice: 0,
-        maxPrice: 0,
+        minPrice: value[0],
+        maxPrice: value[1],
         sizes: [],
         colors: []
     });
@@ -42,23 +42,24 @@ export const FilterBox = () => {
         refreshShoes({
             ...filterData
         });
-    }, [filterData]);
+    }, [filterData, value]);
    
     useEffect(() => {
         fetchBrands();   
-        getMaxPrice();
+        fetchShoeProductsAndGetMaxPrice();
     }, []);
 
     useEffect(() => {
-        getMaxPrice();
-    }, [shoeProducts]);
-  
-    
-    const getMaxPrice = () => {
-        if (shoeProducts) {
+        fetchShoeProductsAndGetMaxPrice();
+    }, []);
+
+
+    const fetchShoeProductsAndGetMaxPrice = async () => {
+        await axios.get(config.apiUrl + 'shoeProducts').then(res => {
             setMaxPrice(
-                Math.max(...shoeProducts.searchingShoeProducts.map(shoeProduct => calcShoeProductPrice(shoeProduct)))
-            );}
+                Math.max(...res.data.map(items => calcShoeProductPrice(items)))
+            );
+        });
     };
 
     const fetchBrands = async () => {
@@ -160,10 +161,10 @@ export const FilterBox = () => {
         }
     };
 
- 
-  
     return (
         <div className='max-w-[16.666667%] min-w-[16.666667%] mr-20'>
+            {console.log(value, filterData, maxPrice)}
+
             <div className='py-4'>
                 <div className='px-3 flex w-full justify-between'>
                     <p className='font-bold'>FILTER</p>
@@ -187,7 +188,7 @@ export const FilterBox = () => {
                 {renderGenderCheckboxes()}
             </FilterItemBox>
             <FilterItemBox title='Price' >
-                <FilterItemPrice maxPrice={maxPrice} value={value} />
+                <FilterItemPrice maxPrice={maxPrice} value={value} setValue={setValue} filterData={filterData} setFilterData={setFilterData}/>
             </FilterItemBox>
             <FilterItemBox title='Colors' >
                 <div className='w-full flex flex-wrap items-center'>
