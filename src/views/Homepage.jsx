@@ -1,6 +1,7 @@
 import { FilterBox } from '@components/Filter/FilterBox';
 import { ShoeProductCard } from '@components/ShoeProductCard';
 import { DefaultLayout } from '@layouts/DefaultLayout';
+import { addProductToShoppingCart } from '@state/shopping-cart/shoppingCartSlice';
 import { calcShoeProductPrice } from '@utils/calcShoeProductPrice';
 import React from 'react';
 import { useSelector } from 'react-redux';
@@ -10,12 +11,13 @@ export const Homepage = () => {
 
     const shoeProducts = useSelector(state => { return state.shoeProducts.shoeProducts; });
     const navigate = useNavigate();
-
+   
     const renderShoeProductsCards = () => {
         if (shoeProducts) {
             return shoeProducts.searchingShoeProducts.map(shoeProduct => {return (
-                <ShoeProductCard key={shoeProduct._id} bgImg={shoeProduct.photos[0]} brand={shoeProduct.brand} colors={shoeProduct.colors} model={shoeProduct.model} price={shoeProduct.price} calcShoeProductPrice={calcShoeProductPrice(shoeProduct)} 
-                    isOnSale={shoeProduct.isOnSale} onViewDetailsClick={() => navigate(`shoeProduct/${shoeProduct._id}`) }/>
+                <ShoeProductCard key={shoeProduct._id} id={shoeProduct._id} bgImg={shoeProduct.photos[0]} brand={shoeProduct.brand} colors={shoeProduct.colors} model={shoeProduct.model} price={shoeProduct.price} calcShoeProductPrice={calcShoeProductPrice(shoeProduct)} 
+                    isOnSale={shoeProduct.isOnSale} onViewDetailsClick={() => navigate(`shoeProduct/${shoeProduct._id}`)}
+                />
             );});
         }
     };

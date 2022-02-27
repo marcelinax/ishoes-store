@@ -12,7 +12,7 @@ import { BreakLine } from '@components/Shopping-cart/BreakLine';
 import { ShoeProductHeading } from '@components/Shoe-product/ShoeProductHeading';
 import { SizeItem } from '@components/Global/SizeItem';
 
-export const ShoeProductInfoBox = ({ brand, model, material, type, opinions, calcShoeProductPrice, price, isOnSale, size, colors }) => {
+export const ShoeProductInfoBox = ({ brand, model, material, type, opinions, calcShoeProductPrice, price, isOnSale, size, colors, onAddToShoppingCart }) => {
     
     const renderColorsItems = () => {
         if (colors)
@@ -88,7 +88,7 @@ export const ShoeProductInfoBox = ({ brand, model, material, type, opinions, cal
                            
                         </div>
                         <div className='w-full flex mt-12'>
-                            <Button type={buttonTypes.TEXT_BUTTON} backgroundColor='bg-black' title={locales.ADD_TO_CART} className='mr-5' />
+                            <Button type={buttonTypes.TEXT_BUTTON} backgroundColor='bg-black' title={locales.ADD_TO_CART} className='mr-5' onClick={onAddToShoppingCart}/>
                             <Button type={buttonTypes.ICON_BUTTON} icon={<BiHeart size={24} fill='#fff'/>} backgroundColor='bg-black' className='p-5 flex items-center justify-center'/>
                         </div>
                     </div>

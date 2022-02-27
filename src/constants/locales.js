@@ -9,6 +9,7 @@ export default {
     GIVE_CODE: 'GIVE CODE',
     SHIPPING: 'SHIPPING',
     ITEMS: 'ITEMS',
+    ITEM: 'ITEM',
     SUMMARY: 'Summary',
     SHOPPING_CART: 'Shopping Cart',
     SEARCH: 'Search...',

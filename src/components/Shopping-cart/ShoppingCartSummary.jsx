@@ -5,8 +5,19 @@ import buttonTypes from '@constants/buttonTypes';
 import locales from '@constants/locales';
 import { BreakLine } from '@components/Shopping-cart/BreakLine';
 import { Input } from '@components/Inputs/Input';
+import { useSelector } from 'react-redux';
+import { calcShoeProductPrice } from '@utils/calcShoeProductPrice';
+import { calcTotalShoppingCartItemsAmount } from '@utils/calcTotalShoppingCartItemsAmount';
 
 export const ShoppingCartSummary = () => {
+
+    const shoppingCartItems = useSelector(state => state.shoppingCart.shoppingCartItems);
+
+    const getPriceFromAllItems = () => {
+        if(shoppingCartItems)
+            return shoppingCartItems.length ? shoppingCartItems.map(item => calcShoeProductPrice(item.product) * item.amount).reduce((acc, cur) => acc + cur) : 0;
+    };
+
     return (
         <div className='w-2/5 h-screen bg-[#F5F5F5]'>
             <div className='w-full p-14'>
@@ -15,8 +26,8 @@ export const ShoppingCartSummary = () => {
                 </div>
                 < BreakLine className='mt-1'/>
                 <div className='w-full flex justify-between items-center my-9'>
-                    <p className='font-semibold text-lg '>{locales.ITEMS} 3</p>
-                    <p className='font-semibold text-lg '>$120</p>
+                    <p className='font-semibold text-lg '>{locales.ITEMS} {calcTotalShoppingCartItemsAmount(shoppingCartItems)}</p>
+                    <p className='font-bold text-lg '>$ {getPriceFromAllItems()}</p>
                 </div>
                 <div>
                     <div className='flex flex-col'>
@@ -31,7 +42,7 @@ export const ShoppingCartSummary = () => {
                 <BreakLine className='mt-20' />
                 <div className='w-full flex justify-between items-center mt-6'>
                     <p className='font-semibold text-lg'>{locales.TOTAL_PRICE}</p>
-                    <p className='font-semibold text-lg'>$137</p>
+                    <p className='font-bold text-lg'>$137</p>
                 </div>
                 <div className='mt-28 w-full'>
                     <Button backgroundColor='bg-black' type={buttonTypes.TEXT_BUTTON} title={locales.ORDER} />

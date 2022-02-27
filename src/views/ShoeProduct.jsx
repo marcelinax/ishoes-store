@@ -6,6 +6,7 @@ import { ShoeProductBgBox } from '@components/Shoe-product/ShoeProductBgBox';
 import { ShoeProductInfoBox } from '@components/Shoe-product/ShoeProductInfoBox';
 import { calcShoeProductPrice } from '@utils/calcShoeProductPrice';
 import { Spinner } from '@components/Global/Spinner';
+import { addProductToShoppingCart } from '@state/shopping-cart/shoppingCartSlice';
 
 export const ShoeProduct = () => {
 
@@ -26,7 +27,9 @@ export const ShoeProduct = () => {
             <ShoeProductBgBox photos={shoeProduct.photos}/>
             <ShoeProductInfoBox brand={shoeProduct.brand.name} model={shoeProduct.model} isOnSale={shoeProduct.isOnSale} material={shoeProduct.material}
                 opinions={shoeProduct.opinions} price={shoeProduct.price} type={shoeProduct.type} size={shoeProduct.size} colors={shoeProduct.colors}
-                calcShoeProductPrice={calcShoeProductPrice(shoeProduct)} />
+                calcShoeProductPrice={calcShoeProductPrice(shoeProduct)}
+                onAddToShoppingCart={() => dispatch(addProductToShoppingCart(shoeProduct))}
+            />
         </div>
     ) : <Spinner/>;
 };

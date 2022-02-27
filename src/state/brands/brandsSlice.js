@@ -1,12 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initalState = () => ({
+const initialState = () => ({
     brands: []
 });
 
 export const brandsSlice = createSlice({
     name: 'brands',
-    initialState: initalState(),
+    initialState: initialState(),
     reducers: {
         setBrands: (state, action) => {
             state.brands = [...action.payload];
