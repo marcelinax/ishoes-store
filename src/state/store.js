@@ -1,6 +1,6 @@
-import brandsSlice from './brandsSlice';
 import { configureStore } from '@reduxjs/toolkit';
-import shoeProductsSlice from './shoeProductsSlice';
+import brandsSlice from '@state/brands/brandsSlice';
+import shoeProductsSlice from '@state/shoe-products/shoeProductsSlice';
 
 export default configureStore({
     reducer: {

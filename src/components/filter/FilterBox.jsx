@@ -1,31 +1,26 @@
-import { COLORS, GENDER, SIZES } from '../../Constants';
-
-import { FilterBoxLabel } from './FilterBoxLabel';
-import { FilterItemBox } from './FilterItemBox';
-import { FilterItemBoxColor } from './FilterItemBoxColor';
-import { FilterItemCheckbox } from './FilterItemCheckbox';
-import { FilterItemPrice } from './FilterItemPrice';
-import React from 'react';
-import { SizeItem } from './../global/SizeItem';
-import { TYPES } from './../../Constants';
-import axios from 'axios';
-import { calcShoeProductPrice } from './../../utils/calcShoeProductPrice';
-import { config } from './../../config/Config';
-import { setBrands } from '../../state/brandsSlice';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { useRefreshShoeProducts } from './../../hooks/useRefreshShoeProducts';
-import { useSelector } from 'react-redux';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { apiClient } from '@api/apiClient';
+import genderTypes from '@constants/genderTypes';
+import colorsTypes from '@constants/colorsTypes';
+import sizesTypes from '@constants/sizesTypes';
+import shoesTypes from '@constants/shoesTypes';
+import locales from '@constants/locales';
+import { useRefreshShoeProducts } from '@hooks/useRefreshShoeProducts';
+import { calcShoeProductPrice } from '@utils/calcShoeProductPrice';
+import { setBrands } from '@state/brands/brandsSlice';
+import { FilterItemCheckbox } from '@components/Filter/FilterItemCheckbox';
+import { FilterItemBoxColor } from '@components/Filter/FilterItemBoxColor';
+import { SizeItem } from '@components/Global/SizeItem';
+import { FilterBoxLabel } from '@components/Filter/FilterBoxLabel';
+import { FilterItemBox } from '@components/Filter/FilterItemBox';
+import { FilterItemPrice } from '@components/Filter/FilterItemPrice';
 
 export const FilterBox = () => {
-
-
     const dispatch = useDispatch();
     const brands = useSelector(state => state.brands.brands);
-    const shoeProducts = useSelector(state => { return state.shoeProducts.shoeProducts; });
-    const [maxPrice, setMaxPrice] = useState(0); 
-    const [value,setValue] = useState([0, 0]);
+    const [maxPrice, setMaxPrice] = useState(0);
+    const [value, setValue] = useState([0, 0]);
     const [filterLabels, setFilterLabels] = useState([]);
     const { refresh: refreshShoes } = useRefreshShoeProducts();
     const [filterData, setFilterData] = useState({
@@ -37,25 +32,20 @@ export const FilterBox = () => {
         sizes: [],
         colors: []
     });
-    
+
+    useEffect(() => {
+        fetchBrands();
+        fetchShoeProductsAndGetMaxPrice();
+    }, []);
+
     useEffect(() => {
         refreshShoes({
             ...filterData
         });
-    }, [filterData, value]);
+    }, [filterData, value, maxPrice]);
    
-    useEffect(() => {
-        fetchBrands();   
-        fetchShoeProductsAndGetMaxPrice();
-    }, []);
-
-    useEffect(() => {
-        fetchShoeProductsAndGetMaxPrice();
-    }, []);
-
-
     const fetchShoeProductsAndGetMaxPrice = async () => {
-        await axios.get(config.apiUrl + 'shoeProducts').then(res => {
+        await apiClient.get('shoeProducts').then(res => {
             setMaxPrice(
                 Math.max(...res.data.map(items => calcShoeProductPrice(items)))
             );
@@ -63,7 +53,7 @@ export const FilterBox = () => {
     };
 
     const fetchBrands = async () => {
-        await axios.post(config.apiUrl + 'brands/search').then(res => {
+        await apiClient.post('brands/search').then(res => {
             dispatch(setBrands(res.data));
         });
     };
@@ -103,7 +93,6 @@ export const FilterBox = () => {
             });
             removeFilterLabel(item, items);
         }
-        
     };
 
     const clearAllFilters = () => {
@@ -121,28 +110,28 @@ export const FilterBox = () => {
     
 
     const renderGenderCheckboxes = () => {
-        return GENDER.gender.map(gender => {return (
-            <FilterItemCheckbox key={gender} title={gender} onChange={() => onFilterItemChange(gender, 'genders')} value={filterData.genders.includes(gender)}/>
+        return Object.entries(genderTypes).map(gender => {return (
+            <FilterItemCheckbox key={gender[0]} title={gender[1]} onChange={() => onFilterItemChange(gender[1], 'genders')} value={filterData.genders.includes(gender[1])}/>
         );});
     };
 
     const renderColors = () => {
-        return COLORS.colors.map(color => {
+        return colorsTypes.colors.map(color => {
             return (
                 <FilterItemBoxColor key={color.title} color={color.color} title={color.title} onChange={() => onFilterItemChange(color.title, 'colors')} value={filterData.colors.includes(color.title)}/>
             );});
     };
 
     const renderSizes = () => {
-        return SIZES.sizes.map(size => {
+        return sizesTypes.sizes.map(size => {
             return (
                 <SizeItem key={size} size={size} onChange={() => onFilterItemChange(size, 'sizes')} value={filterData.sizes.includes(size)}/>
             );});
     };
 
     const renderTypes = () => {
-        return TYPES.types.map(type => {return (
-            <FilterItemCheckbox key={type} title={type} onChange={() => onFilterItemChange(type, 'types')} value={filterData.types.includes(type)}/>
+        return Object.entries(shoesTypes).map(type => {return (
+            <FilterItemCheckbox key={type[0]} title={type[1]} onChange={() => onFilterItemChange(type[1], 'types')} value={filterData.types.includes(type[1])}/>
         );});
     };
 
@@ -163,12 +152,10 @@ export const FilterBox = () => {
 
     return (
         <div className='max-w-[16.666667%] min-w-[16.666667%] mr-20'>
-            {console.log(value, filterData, maxPrice)}
-
             <div className='py-4'>
                 <div className='px-3 flex w-full justify-between'>
-                    <p className='font-bold'>FILTER</p>
-                    <p className='text-red-500 font-semibold text-sm cursor-pointer transition-all hover:scale-95' onClick={clearAllFilters}>Clear All</p>
+                    <p className='font-bold'>{locales.FILTER}</p>
+                    <p className='text-red-500 font-semibold text-sm cursor-pointer transition-all hover:scale-95' onClick={clearAllFilters}>{locales.CLEAR_ALL}</p>
                 </div>
             </div>
             <div className='py-4 mb-5'>
@@ -178,29 +165,28 @@ export const FilterBox = () => {
                     </div>
                 </div>
             </div>
-            <FilterItemBox title='Types'>
+            <FilterItemBox title={locales.TYPES}>
                 {renderTypes()}
             </FilterItemBox>
-            <FilterItemBox title='Brands'>
+            <FilterItemBox title={locales.BRANDS}>
                 {renderBrands()}
             </FilterItemBox>
-            <FilterItemBox title='Gender' >
+            <FilterItemBox title={locales.GENDER}>
                 {renderGenderCheckboxes()}
             </FilterItemBox>
-            <FilterItemBox title='Price' >
+            <FilterItemBox title={locales.PRICE}>
                 <FilterItemPrice maxPrice={maxPrice} value={value} setValue={setValue} filterData={filterData} setFilterData={setFilterData}/>
             </FilterItemBox>
-            <FilterItemBox title='Colors' >
+            <FilterItemBox title={locales.COLORS}>
                 <div className='w-full flex flex-wrap items-center'>
                     {renderColors()}
                 </div>
             </FilterItemBox>
-            <FilterItemBox title='Sizes' >
-                <div className='w-full flex flex-wrap justify-between'>
+            <FilterItemBox title={locales.SIZES}>
+                <div className='w-full flex flex-wrap justify-between mb-10'>
                     {renderSizes()}
                 </div>
-            </FilterItemBox>
-            
+            </FilterItemBox> 
         </div>
     );
 };

@@ -1,19 +1,15 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { DefaultLayout } from '../layouts/DefaultLayout';
-import { FilterBox } from './../components/filter/FilterBox';
-import { ShoeProductCard } from './../components/ShoeProductCard';
-import axios from 'axios';
-import { calcShoeProductPrice } from './../utils/calcShoeProductPrice';
+import { FilterBox } from '@components/Filter/FilterBox';
+import { ShoeProductCard } from '@components/ShoeProductCard';
+import { DefaultLayout } from '@layouts/DefaultLayout';
+import { calcShoeProductPrice } from '@utils/calcShoeProductPrice';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useRefreshShoeProducts } from './../hooks/useRefreshShoeProducts';
 
 export const Homepage = () => {
 
     const shoeProducts = useSelector(state => { return state.shoeProducts.shoeProducts; });
     const navigate = useNavigate();
-
 
     const renderShoeProductsCards = () => {
         if (shoeProducts) {
@@ -24,10 +20,8 @@ export const Homepage = () => {
         }
     };
 
-  
     return (
-
-        <DefaultLayout >
+        <DefaultLayout>
             <div className='container h-screen mx-auto flex mt-36'>
                 <FilterBox />
                 <div className='min-w-[83.3333%] max-w-[83.3333%] content-start h-full mx-auto flex flex-wrap'>
@@ -35,6 +29,5 @@ export const Homepage = () => {
                 </div>
             </div>
         </DefaultLayout>
-
     );
 };

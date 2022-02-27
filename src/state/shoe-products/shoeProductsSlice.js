@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const initalState = () => ({
+    shoeProducts: { searchingShoeProducts: [], totalItems: 0 },
+    shoeProduct: null
+});
+
 export const shoeProductsSlice = createSlice({
     name: 'shoeProducts',
-    initialState: {
-        shoeProducts: { searchingShoeProducts: [], totalItems: 0 },
-        shoeProduct: null
-    },
+    initialState: initalState(),
     reducers: {
         setShoeProducts: (state, action) => {
             const { searchingShoeProducts, totalItems } = action.payload;

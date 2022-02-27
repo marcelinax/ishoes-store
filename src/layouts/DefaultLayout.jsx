@@ -1,4 +1,4 @@
-import { Navbar } from '../components/compositional/Navbar';
+import { Navbar } from '@components/Compositional/Navbar';
 import React from 'react';
 
 export const DefaultLayout = ({children}) => {

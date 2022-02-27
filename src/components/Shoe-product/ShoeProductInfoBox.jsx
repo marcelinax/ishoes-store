@@ -1,16 +1,16 @@
 import { BiHeart } from 'react-icons/bi';
 import { BiX } from 'react-icons/bi';
-import { BreakLine } from './../shopping cart/BreakLine';
-import { ButtonWithIcon } from '../global/ButtonWithIcon';
-import { COLORS } from './../../Constants';
-import { ColorItem } from '../global/ColorItem';
-import { PrimaryButton } from './../global/PrimaryButton';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { ShoeProductHeading } from './ShoeProductHeading';
-import { SizeItem } from './../global/SizeItem';
-import { StarItem } from '../global/StarItem';
-import { getColorsByTitle } from './../../utils/getColorsByTitle';
+import { Button } from '@components/Global/Button';
+import buttonTypes from '@constants/buttonTypes';
+import locales from '@constants/locales';
+import { ColorItem } from '@components/Global/ColorItem';
+import { getColorsByTitle } from '@utils/getColorsByTitle';
+import { StarItem } from '@components/Global/StarItem';
+import { BreakLine } from '@components/Shopping-cart/BreakLine';
+import { ShoeProductHeading } from '@components/Shoe-product/ShoeProductHeading';
+import { SizeItem } from '@components/Global/SizeItem';
 
 export const ShoeProductInfoBox = ({ brand, model, material, type, opinions, calcShoeProductPrice, price, isOnSale, size, colors }) => {
     
@@ -20,8 +20,6 @@ export const ShoeProductInfoBox = ({ brand, model, material, type, opinions, cal
                 <ColorItem key={color.toLowerCase()} color={getColorsByTitle(color)} className='w-10 h-10' />
             ));
     };
-
-   
 
     const renderStarsItems = () => {
         if (opinions) {
@@ -41,7 +39,6 @@ export const ShoeProductInfoBox = ({ brand, model, material, type, opinions, cal
             console.log(stars);
             return stars;
         }
-        
     };
 
     return (
@@ -52,7 +49,7 @@ export const ShoeProductInfoBox = ({ brand, model, material, type, opinions, cal
                         <h2 className='font-semibold text-2xl'>{brand}</h2>
                         <h1 className='font-bold text-4xl mt-2'>{model}</h1>
                     </div>
-                    <ButtonWithIcon isLink={true} to='/' icon={<BiX fill='#ffffff' className='w-full h-full'/>} className='w-12 h-12 bg-black relative right-0 top-0 cursor-pointer hover:scale-95 transition-all'/>
+                    <Button type={buttonTypes.ICON_BUTTON} isLink linkTo='/' icon={<BiX fill='#ffffff' className='w-full h-full'/>} backgroundColor='bg-black' className='w-12 h-12 relative right-0 top-0 cursor-pointer hover:scale-95 transition-all'/>
                 </div>
                 <BreakLine className='my-8' />
                 <div className='w-full flex'>
@@ -61,23 +58,23 @@ export const ShoeProductInfoBox = ({ brand, model, material, type, opinions, cal
                         <div className='w-full flex mt-2'>
                             {renderColorsItems()}
                         </div>
-                        <ShoeProductHeading title='SIZE' className='mt-4'/>
+                        <ShoeProductHeading title={locales.SIZE} className='mt-4'/>
                         <div className='w-full flex mt-2'>
                             <SizeItem size={size} className='ml-0' />
                         </div>
                         <BreakLine className='my-8' />
                         <div className='w-full flex flex-col'>
                             <div className='w-full flex items-center'>
-                                <ShoeProductHeading title='MATERIAL' className='mr-3'/>
+                                <ShoeProductHeading title={locales.MATERIAL} className='mr-3'/>
                                 <p className='text-neutral-400'>{material}</p>
                             </div>
                             <div className='w-full flex items-center'>
-                                <ShoeProductHeading title='TYPE' className='mr-3'/>
+                                <ShoeProductHeading title={locales.TYPE} className='mr-3'/>
                                 <p className='text-neutral-400'>{type}</p>
                             </div>
                         </div>
                         <BreakLine className='my-8' />
-                        <ShoeProductHeading title='OPINIONS'/>
+                        <ShoeProductHeading title={locales.OPINIONS}/>
                         <div className='w-full flex mt-2 items-center'>
                             <div className='flex'>
                                 {renderStarsItems()}
@@ -91,8 +88,8 @@ export const ShoeProductInfoBox = ({ brand, model, material, type, opinions, cal
                            
                         </div>
                         <div className='w-full flex mt-12'>
-                            <PrimaryButton title='ADD TO CART' type='button' className='mr-5' />
-                            <ButtonWithIcon icon={<BiHeart size={24} fill='#fff'/>} className='bg-black p-5 flex items-center justify-center'/>
+                            <Button type={buttonTypes.TEXT_BUTTON} backgroundColor='bg-black' title={locales.ADD_TO_CART} className='mr-5' />
+                            <Button type={buttonTypes.ICON_BUTTON} icon={<BiHeart size={24} fill='#fff'/>} backgroundColor='bg-black' className='p-5 flex items-center justify-center'/>
                         </div>
                     </div>
                 </div>

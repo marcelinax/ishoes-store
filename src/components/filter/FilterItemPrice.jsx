@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 
 import Slider from '@material-ui/core/Slider';
-import { useEffect } from 'react';
 
-export const FilterItemPrice = ({maxPrice, value, setValue, filterData, setFilterData}) => {
+export const FilterItemPrice = ({maxPrice, value, setValue, filterData, setFilterData, onFilterItemChange}) => {
 
-    // const [value, setValue] = useState([0, maxPrice]);
+    useEffect(() => {
+        value[1] = maxPrice;
+    },[]);
 
     useEffect(() => {
         setFilterData({
@@ -13,11 +14,10 @@ export const FilterItemPrice = ({maxPrice, value, setValue, filterData, setFilte
             maxPrice: value[1],
             minPrice: value[0]
         });
-    },[value]);
-
+    }, [value ]);
+    
     return (
         <div className='w-full flex flex-col'>
-            {console.log(value)}
             <Slider
                 value={value}
                 onChange={(e,newValue)=> { setValue(newValue);}}
@@ -34,6 +34,4 @@ export const FilterItemPrice = ({maxPrice, value, setValue, filterData, setFilte
             </div>
         </div>
     );
-
-    
 };

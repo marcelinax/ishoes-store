@@ -14,6 +14,5 @@ export const FilterItemCheckbox = ({title, value, onChange}) => {
 };
 
 FilterItemCheckbox.propTypes = {
-    title: PropTypes.string.isRequired,
-    isChecked: PropTypes.bool.isRequired
+    title: PropTypes.string.isRequired
 };

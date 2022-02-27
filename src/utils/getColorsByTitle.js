@@ -1,5 +1,6 @@
-import { COLORS } from '../Constants';
+import colorsTypes from '@constants/colorsTypes';
+
 
 export const getColorsByTitle = (title) => {
-    return COLORS.colors.filter(color => color.title === title).map(color => color.color);
+    return colorsTypes.colors.filter(color => color.title === title).map(color => color.color);
 };

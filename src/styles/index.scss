@@ -35,28 +35,37 @@
     }
 }
 
-.navbar-link:hover::after{
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 2px;
-    width: 100%;
-    background-color: black;
-    animation: linkHover .3s;
+.navbar-link {
+    &:hover {
+        &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        width: 100%;
+        background-color: black;
+        animation: linkHover .3s;
+    }
+}
+    &.red-link{
+        &:hover {
+            &::after {
+                background-color: #ef4444;
+    
+            }
+        }
+    }
 }
 
-.navbar-link.red-link:hover::after{
-    background-color: #ef4444;
-}
 
-.search{
+.search {
     animation: showSearch .3s;
+    &.-hidden{
+        animation: hideSearch .3s ;
+    }
 }
-.search-hidden{
-    animation: hideSearch .3s ;
 
-}
 .MuiSlider-root  {
     height: 5px !important;
     
@@ -71,23 +80,19 @@
     top: 14px !important;
 }
 
-@layer utilities {
-    .scrollbar {
-      scrollbar-color: red white;
-      scrollbar-width: thin;
+.scrollbar {
+    scrollbar-color: red white;
+    scrollbar-width: thin;
+    &::-webkit-scrollbar {
+      width: 8px;
     }
-    .scrollbar::-webkit-scrollbar {
-        width: 8px;
-      }
-  
-      .scrollbar::-webkit-scrollbar-track {
-        background:  #d6d3d1;
-        border-radius: 20px;
-      }
-  
-      .scrollbar::-webkit-scrollbar-thumb {
-        background:#a8a29e;
-        border-radius: 20px;
-      }
-    
-  }
+    &::-webkit-scrollbar-track {
+      background:  #d6d3d1;
+      border-radius: 20px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background:#a8a29e;
+      border-radius: 20px;
+    }
+}
+

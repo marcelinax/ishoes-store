@@ -1,13 +1,11 @@
+import { ShoeProductGalleryItem } from '@components/Shoe-product/ShoeProductGalleryItem';
 import PropTypes from 'prop-types';
-import React from 'react';
-import { ShoeProductGalleryItem } from './ShoeProductGalleryItem';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 export const ShoeProductBgBox = ({ photos }) => {
     
     const [activePhoto, setActivePhoto] = useState(photos[0]);
 
-    
     const renderShoeProductGalleryItems = () => {
         if (photos) {
             return photos.map(photo => (

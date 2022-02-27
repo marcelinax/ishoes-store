@@ -1,7 +1,6 @@
-import axios from 'axios';
-import { config } from './../config/Config';
-import { setShoeProducts } from '../state/shoeProductsSlice';
 import { useDispatch } from 'react-redux';
+import { setShoeProducts } from '@state/shoe-products/shoeProductsSlice';
+import { apiClient } from '@api/apiClient';
 
 export const useRefreshShoeProducts = () => {
     
@@ -9,7 +8,7 @@ export const useRefreshShoeProducts = () => {
 
     const refresh = async (body) => {
         try {
-            await axios.post(config.apiUrl + 'shoeProducts/search', body).then(res => dispatch(setShoeProducts(res.data)));
+            await apiClient.post('shoeProducts/search', body).then(res => dispatch(setShoeProducts(res.data)));
         } catch (error) {
             console.log(error.resposne);
         }
