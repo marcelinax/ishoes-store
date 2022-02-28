@@ -7,6 +7,7 @@ import { ShoppingCartItem } from '@components/Shopping-cart/ShoppingCartItem';
 import { useDispatch, useSelector } from 'react-redux';
 import { calcShoeProductPrice } from '@utils/calcShoeProductPrice';
 import { decreaseProductAmountInShoppingCart, increaseProductAmountInShoppingCart, removeProductFromShoppingCart } from '@state/shopping-cart/shoppingCartSlice';
+import { calcTotalShoppingCartItemsAmount } from '@utils/calcTotalShoppingCartItemsAmount';
 
 export const ShoppingCartItems = () => {
 
@@ -29,7 +30,7 @@ export const ShoppingCartItems = () => {
             <div className='w-full p-14 relative'>
                 <div className='w-full flex justify-between items-center mb-20'>
                     <h1 className='text-3xl font-bold'>{locales.SHOPPING_CART}</h1>
-                    <p className='text-stone-400 font-medium'>{shoppingCartItems && shoppingCartItems.length} {shoppingCartItems.length !== 1 ? locales.ITEMS : locales.ITEM}</p>
+                    <p className='text-stone-400 font-medium'>{calcTotalShoppingCartItemsAmount(shoppingCartItems)} {calcTotalShoppingCartItemsAmount(shoppingCartItems) !== 1 ? locales.ITEMS : locales.ITEM}</p>
                 </div>
                 <BreakLine className='mb-2' />
                 <div className='w-full flex flex-col  max-h-[60vh] overflow-y-auto pr-2 scrollbar'>

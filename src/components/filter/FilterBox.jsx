@@ -44,6 +44,7 @@ export const FilterBox = () => {
             ...filterData
         });
     }, [filterData, value, maxPrice]);
+
    
     const fetchShoeProductsAndGetMaxPrice = async () => {
         const res = await searchShoeProductsService();
@@ -74,7 +75,6 @@ export const FilterBox = () => {
     };
 
     const onFilterItemChange = (item, items) => {
-
         if (!filterData[items].includes(item)) {
             setFilterData({
                 ...filterData,
@@ -92,17 +92,33 @@ export const FilterBox = () => {
         }
     };
 
+    const onFilterPriceChange = () => {
+        removeFilterLabel(`$${filterData.minPrice} - ${filterData.maxPrice}`, 'price');
+        addFilterLabel(`$${filterData.minPrice} - ${filterData.maxPrice}`, 'price');
+    };
+
+    const onRemovePriceLabel = () => {
+        setFilterData({
+            ...filterData,
+            maxPrice,
+            minPrice: 0
+        });
+        setValue([0, maxPrice]);
+        removeFilterLabel(`$${filterData.minPrice} - ${filterData.maxPrice}`, 'price');
+    };
+
     const clearAllFilters = () => {
         setFilterData({
             types: [],
             brands: [],
             genders: [],
             minPrice: 0,
-            maxPrice: 0,
+            maxPrice: maxPrice,
             sizes: [],
             colors: []
         });
         setFilterLabels([]);
+        setValue([0, maxPrice]);
     };
     
 
@@ -142,7 +158,7 @@ export const FilterBox = () => {
     const renderFilterBoxLabels = () => {
         if (filterLabels) {
             return filterLabels.map(label => (
-                <FilterBoxLabel title={label.items === 'brands' ? getBrandNameById(label.item) : label.item} key={label.item} onClick={() => onFilterItemChange(label.item, label.items )}/>
+                <FilterBoxLabel title={label.items === 'brands' ? getBrandNameById(label.item) : label.item} key={label.item} onClick={() => label.items === 'price' ? onRemovePriceLabel() : onFilterItemChange(label.item, label.items )}/>
             ));
         }
     };
@@ -172,7 +188,7 @@ export const FilterBox = () => {
                 {renderGenderCheckboxes()}
             </FilterItemBox>
             <FilterItemBox title={locales.PRICE}>
-                <FilterItemPrice maxPrice={maxPrice} value={value} setValue={setValue} filterData={filterData} setFilterData={setFilterData}/>
+                <FilterItemPrice onFilterPriceChange={onFilterPriceChange} maxPrice={maxPrice} value={value} setValue={setValue} filterData={filterData} setFilterData={setFilterData} />
             </FilterItemBox>
             <FilterItemBox title={locales.COLORS}>
                 <div className='w-full flex flex-wrap items-center'>

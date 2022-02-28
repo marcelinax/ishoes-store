@@ -13,21 +13,23 @@ export const ShoeProductCard = ({ bgImg, colors, model, brand, price, calcShoePr
     };
 
     return (
-        <div className='flex flex-col basis-1/3 h-2/5 px-6 cursor-pointer' onClick={onViewDetailsClick}>
-            <div className='w-full h-1/3'>
-                <div className='bg-no-repeat bg-center bg-contain h-full w-full' style={{backgroundImage: `url(${bgImg})`}} />
-            </div>
-            <div className='flex flex-col w-full mt-2 bg-red py-4 px-2'>
-                <div className='w-full flex flex-wrap'>
-                    {renderColorsItems()}
+        <div className='basis-1/3 h-2/5 px-6 py-6'>
+            <div className='flex flex-col w-full h-full cursor-pointer' onClick={onViewDetailsClick}>
+                <div className='w-full h-1/2'>
+                    <div className='bg-no-repeat bg-center bg-contain h-full w-full' style={{backgroundImage: `url(${bgImg})`}} />
                 </div>
-                <BreakLine className='h-[1px] my-2'/>
-                <div className='w-full flex flex-col'>
-                    <h6 className='font-bold text-sm mb-1'>{brand.name}</h6>
-                    <h6 className='font-bold text-sm mb-1'>{model}</h6>
-                    <div className='flex items-center'>
-                        {isOnSale && <p className='text-red-600 font-medium text-sm mr-1'>${calcShoeProductPrice}</p>}
-                        <p className={`text-neutral-500 font-medium text-sm ${isOnSale && 'line-through	text-xs'}`}>${price}</p>
+                <div className='flex flex-col w-full mt-2 bg-red py-4 px-2'>
+                    <div className='w-full flex flex-wrap'>
+                        {renderColorsItems()}
+                    </div>
+                    <BreakLine className='h-[1px] my-2'/>
+                    <div className='w-full flex flex-col'>
+                        <h6 className='font-bold text-sm mb-1'>{brand.name}</h6>
+                        <h6 className='font-bold text-sm mb-1'>{model}</h6>
+                        <div className='flex items-center'>
+                            {isOnSale && <p className='text-red-600 font-medium text-sm mr-1'>${calcShoeProductPrice}</p>}
+                            <p className={`text-neutral-500 font-medium text-sm ${isOnSale && 'line-through	text-xs'}`}>${price}</p>
+                        </div>
                     </div>
                 </div>
             </div>

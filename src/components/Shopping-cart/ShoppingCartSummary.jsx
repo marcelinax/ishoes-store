@@ -26,7 +26,7 @@ export const ShoppingCartSummary = () => {
                 </div>
                 < BreakLine className='mt-1'/>
                 <div className='w-full flex justify-between items-center my-9'>
-                    <p className='font-semibold text-lg '>{locales.ITEMS} {calcTotalShoppingCartItemsAmount(shoppingCartItems)}</p>
+                    <p className='font-semibold text-lg '>{calcTotalShoppingCartItemsAmount(shoppingCartItems) !== 1 ? locales.ITEMS : locales.ITEM} {calcTotalShoppingCartItemsAmount(shoppingCartItems)}</p>
                     <p className='font-bold text-lg '>$ {getPriceFromAllItems()}</p>
                 </div>
                 <div>
