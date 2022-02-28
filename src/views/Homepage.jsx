@@ -1,7 +1,6 @@
 import { FilterBox } from '@components/Filter/FilterBox';
 import { ShoeProductCard } from '@components/ShoeProductCard';
 import { DefaultLayout } from '@layouts/DefaultLayout';
-import { addProductToShoppingCart } from '@state/shopping-cart/shoppingCartSlice';
 import { calcShoeProductPrice } from '@utils/calcShoeProductPrice';
 import React from 'react';
 import { useSelector } from 'react-redux';

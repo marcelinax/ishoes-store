@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { apiClient } from '@api/apiClient';
 import { ShoeProductBgBox } from '@components/Shoe-product/ShoeProductBgBox';
 import { ShoeProductInfoBox } from '@components/Shoe-product/ShoeProductInfoBox';
 import { calcShoeProductPrice } from '@utils/calcShoeProductPrice';
 import { Spinner } from '@components/Global/Spinner';
 import { addProductToShoppingCart } from '@state/shopping-cart/shoppingCartSlice';
+import { getShoeProductByIdService } from '@services/getShoeProductById.service';
 
 export const ShoeProduct = () => {
 
@@ -19,7 +19,8 @@ export const ShoeProduct = () => {
     },[]);
 
     const fetchShoeProductById = async () => {
-        await apiClient.get(`shoeProducts/${params.id}`).then(res => dispatch(setShoeProduct(res.data)));
+        const res = await getShoeProductByIdService(params);
+        dispatch(setShoeProduct(res.data));
     };
 
     return shoeProduct ? (

@@ -12,7 +12,8 @@ module.exports = function override(config) {
         '@utils': 'src/utils',
         '@constants': 'src/constants',
         '@api': 'src/api',
-        '@routes': 'src/routes'
+        '@routes': 'src/routes',
+        '@services': 'src/services'
     })(config);
 
     return config;

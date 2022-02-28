@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { apiClient } from '@api/apiClient';
 import genderTypes from '@constants/genderTypes';
 import colorsTypes from '@constants/colorsTypes';
 import sizesTypes from '@constants/sizesTypes';
@@ -15,6 +14,8 @@ import { SizeItem } from '@components/Global/SizeItem';
 import { FilterBoxLabel } from '@components/Filter/FilterBoxLabel';
 import { FilterItemBox } from '@components/Filter/FilterItemBox';
 import { FilterItemPrice } from '@components/Filter/FilterItemPrice';
+import { searchShoeProductsService } from '@services/searchShoeProducts.service';
+import { getBrandsService } from '@services/getBrands.service';
 
 export const FilterBox = () => {
     const dispatch = useDispatch();
@@ -45,17 +46,15 @@ export const FilterBox = () => {
     }, [filterData, value, maxPrice]);
    
     const fetchShoeProductsAndGetMaxPrice = async () => {
-        await apiClient.get('shoeProducts').then(res => {
-            setMaxPrice(
-                Math.max(...res.data.map(items => calcShoeProductPrice(items)))
-            );
-        });
+        const res = await searchShoeProductsService();
+        setMaxPrice(
+            Math.max(...res.data.map(items => calcShoeProductPrice(items)))
+        );
     };
 
     const fetchBrands = async () => {
-        await apiClient.post('brands/search').then(res => {
-            dispatch(setBrands(res.data));
-        });
+        const res = await getBrandsService();
+        dispatch(setBrands(res.data));
     };
 
     const getBrandNameById = (id) => {
@@ -63,7 +62,6 @@ export const FilterBox = () => {
             return brands.filter(brand => brand._id === id)[0].name;
         }
     };
-
 
     const addFilterLabel = (item, items) => {
         setFilterLabels([...filterLabels, { item, items }]);
@@ -74,7 +72,6 @@ export const FilterBox = () => {
         filterLabels.splice(filterLabels.indexOf(itemToRemove),1);
         setFilterLabels([...filterLabels]);
     };
-
 
     const onFilterItemChange = (item, items) => {
 
